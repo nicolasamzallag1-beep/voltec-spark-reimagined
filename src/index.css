@@ -248,7 +248,7 @@
     @apply overflow-hidden;
   }
   .voltec-image-zoom img {
-    @apply transition-transform duration-[1.2s] ease-out;
+    @apply transition-transform duration-1000 ease-out;
   }
   .voltec-image-zoom:hover img {
     transform: scale(1.06);
