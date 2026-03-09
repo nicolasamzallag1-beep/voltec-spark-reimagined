@@ -36,24 +36,29 @@ const values = [
 
 const WhyVoltecSection = () => {
   return (
-    <section className="py-24 md:py-32 section-dark">
-      <div className="container mx-auto px-6">
+    <section id="pourquoi" className="py-32 md:py-44 section-white relative">
+      <div className="gradient-sunlight absolute inset-0" />
+      <div className="container mx-auto px-6 lg:px-12 relative">
         <ScrollReveal>
-          <div className="text-center mb-20">
-            <span className="voltec-section-label">Pourquoi Voltec</span>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary-foreground mt-4">
-              Un fabricant engagé
+          <div className="text-center max-w-2xl mx-auto mb-24">
+            <span className="voltec-section-label justify-center">Pourquoi Voltec</span>
+            <h2 className="text-display text-4xl md:text-5xl lg:text-6xl text-foreground mt-6">
+              Un fabricant
+              <br />
+              <span className="voltec-gradient-text">engagé</span>
             </h2>
           </div>
         </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {values.map((item, i) => (
             <ScrollReveal key={item.title} delay={i * 0.1}>
-              <div className="voltec-card h-full">
-                <item.icon className="w-8 h-8 text-voltec-yellow mb-6" strokeWidth={1.5} />
-                <h3 className="font-heading text-lg font-semibold text-primary-foreground mb-3">{item.title}</h3>
-                <p className="text-primary-foreground/55 text-sm leading-relaxed">{item.description}</p>
+              <div className="voltec-feature-card h-full group">
+                <div className="w-12 h-12 mb-8 flex items-center justify-center rounded-full bg-voltec-blue-light group-hover:bg-voltec-yellow-soft transition-colors duration-500">
+                  <item.icon className="w-5 h-5 text-voltec-blue" strokeWidth={1.5} />
+                </div>
+                <h3 className="font-heading text-xl font-semibold text-foreground mb-4">{item.title}</h3>
+                <p className="text-muted-foreground text-[15px] leading-relaxed">{item.description}</p>
               </div>
             </ScrollReveal>
           ))}

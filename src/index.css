@@ -6,45 +6,46 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 30% 10%;
+    --background: 0 0% 100%;
+    --foreground: 220 25% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 30% 10%;
+    --card-foreground: 220 25% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 30% 10%;
+    --popover-foreground: 220 25% 12%;
 
-    --primary: 220 60% 45%;
+    --primary: 220 65% 48%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 95% 55%;
-    --secondary-foreground: 215 30% 10%;
+    --secondary: 45 100% 52%;
+    --secondary-foreground: 220 25% 12%;
 
-    --muted: 210 15% 93%;
-    --muted-foreground: 215 12% 50%;
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 10% 46%;
 
-    --accent: 45 95% 55%;
-    --accent-foreground: 215 30% 10%;
+    --accent: 45 100% 52%;
+    --accent-foreground: 220 25% 12%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 20% 90%;
-    --input: 214 20% 90%;
-    --ring: 220 60% 45%;
+    --border: 220 15% 91%;
+    --input: 220 15% 91%;
+    --ring: 220 65% 48%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Voltec custom tokens */
-    --voltec-blue: 220 60% 45%;
-    --voltec-blue-dark: 220 65% 15%;
-    --voltec-blue-deep: 220 70% 8%;
-    --voltec-yellow: 45 95% 55%;
-    --voltec-yellow-light: 45 90% 70%;
-    --voltec-sky: 200 80% 55%;
-    --voltec-surface: 210 20% 97%;
-    --voltec-surface-dark: 220 65% 12%;
+    /* Voltec brand tokens */
+    --voltec-blue: 220 65% 48%;
+    --voltec-blue-light: 220 60% 96%;
+    --voltec-blue-medium: 220 55% 92%;
+    --voltec-yellow: 45 100% 52%;
+    --voltec-yellow-soft: 45 80% 94%;
+    --voltec-warm: 35 60% 97%;
+    --voltec-cool: 210 30% 97%;
+    --voltec-slate: 220 15% 40%;
+    --voltec-dark: 220 30% 14%;
 
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -68,6 +69,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -76,85 +79,198 @@
 }
 
 @layer components {
-  .section-dark {
-    @apply bg-voltec-blue-deep text-primary-foreground;
+  /* Section backgrounds */
+  .section-white {
+    background: hsl(var(--background));
   }
 
-  .section-light {
-    @apply bg-background text-foreground;
+  .section-warm {
+    background: hsl(var(--voltec-warm));
+  }
+
+  .section-cool {
+    background: hsl(var(--voltec-cool));
+  }
+
+  .section-blue-tint {
+    background: hsl(var(--voltec-blue-light));
+  }
+
+  /* Gradient overlays */
+  .gradient-sunlight {
+    background: linear-gradient(
+      135deg,
+      hsl(45 100% 52% / 0.08) 0%,
+      hsl(220 65% 48% / 0.04) 50%,
+      transparent 100%
+    );
+  }
+
+  .gradient-warm-glow {
+    background: radial-gradient(
+      ellipse at 30% 0%,
+      hsl(45 100% 52% / 0.1) 0%,
+      transparent 60%
+    );
+  }
+
+  /* Typography utilities */
+  .text-display {
+    font-family: var(--font-heading);
+    @apply font-bold tracking-tight leading-[0.92];
   }
 
   .voltec-gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--voltec-blue)), hsl(var(--voltec-sky)));
+    background-image: linear-gradient(135deg, hsl(var(--voltec-blue)), hsl(220 70% 62%));
   }
 
+  .voltec-yellow-gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--voltec-yellow)), hsl(35 100% 55%));
+  }
+
+  /* Section label */
+  .voltec-section-label {
+    @apply text-xs font-semibold tracking-[0.25em] uppercase inline-flex items-center gap-3;
+    color: hsl(var(--voltec-blue));
+  }
+  .voltec-section-label::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: hsl(var(--voltec-yellow));
+  }
+
+  /* Buttons */
   .voltec-btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-semibold text-sm tracking-wider uppercase transition-all duration-300;
+    @apply inline-flex items-center justify-center px-10 py-5 font-semibold text-sm tracking-wider uppercase transition-all duration-500 relative overflow-hidden;
     background: hsl(var(--voltec-blue));
     color: hsl(0 0% 100%);
-    border-radius: 0;
+    border-radius: 2px;
+  }
+  .voltec-btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, hsl(var(--voltec-yellow) / 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .voltec-btn-primary:hover::after {
+    opacity: 1;
   }
   .voltec-btn-primary:hover {
-    background: hsl(var(--voltec-blue-dark));
     transform: translateY(-2px);
-    box-shadow: 0 10px 40px -10px hsl(var(--voltec-blue) / 0.4);
+    box-shadow: 0 20px 60px -15px hsl(var(--voltec-blue) / 0.35);
   }
 
   .voltec-btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-semibold text-sm tracking-wider uppercase transition-all duration-300 border-2;
-    border-color: hsl(var(--voltec-yellow));
-    color: hsl(var(--voltec-yellow));
+    @apply inline-flex items-center justify-center px-10 py-5 font-semibold text-sm tracking-wider uppercase transition-all duration-500 border-2;
+    border-color: hsl(var(--voltec-blue));
+    color: hsl(var(--voltec-blue));
     background: transparent;
-    border-radius: 0;
+    border-radius: 2px;
   }
   .voltec-btn-secondary:hover {
-    background: hsl(var(--voltec-yellow));
-    color: hsl(var(--voltec-blue-deep));
-  }
-
-  .voltec-btn-outline-white {
-    @apply inline-flex items-center justify-center px-8 py-4 font-semibold text-sm tracking-wider uppercase transition-all duration-300 border-2;
-    border-color: hsl(0 0% 100% / 0.3);
+    background: hsl(var(--voltec-blue));
     color: hsl(0 0% 100%);
-    background: transparent;
-    border-radius: 0;
-  }
-  .voltec-btn-outline-white:hover {
-    border-color: hsl(0 0% 100%);
-    background: hsl(0 0% 100% / 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px -15px hsl(var(--voltec-blue) / 0.3);
   }
 
-  .voltec-card {
-    @apply p-8 transition-all duration-500;
-    background: hsl(0 0% 100% / 0.05);
-    border: 1px solid hsl(0 0% 100% / 0.08);
+  .voltec-btn-yellow {
+    @apply inline-flex items-center justify-center px-10 py-5 font-semibold text-sm tracking-wider uppercase transition-all duration-500;
+    background: hsl(var(--voltec-yellow));
+    color: hsl(var(--voltec-dark));
+    border-radius: 2px;
   }
-  .voltec-card:hover {
-    background: hsl(0 0% 100% / 0.08);
-    border-color: hsl(var(--voltec-yellow) / 0.3);
-    transform: translateY(-4px);
+  .voltec-btn-yellow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px -15px hsl(var(--voltec-yellow) / 0.5);
   }
 
+  .voltec-btn-white {
+    @apply inline-flex items-center justify-center px-10 py-5 font-semibold text-sm tracking-wider uppercase transition-all duration-500;
+    background: hsl(0 0% 100%);
+    color: hsl(var(--voltec-dark));
+    border-radius: 2px;
+  }
+  .voltec-btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px -15px hsl(0 0% 0% / 0.15);
+  }
+
+  /* Cards */
+  .voltec-feature-card {
+    @apply p-10 transition-all duration-500 relative overflow-hidden;
+    background: hsl(0 0% 100%);
+    border: 1px solid hsl(var(--border));
+    border-radius: 2px;
+  }
+  .voltec-feature-card:hover {
+    border-color: hsl(var(--voltec-yellow) / 0.5);
+    box-shadow: 0 25px 60px -20px hsl(var(--voltec-blue) / 0.08);
+    transform: translateY(-6px);
+  }
+  .voltec-feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, hsl(var(--voltec-blue)), hsl(var(--voltec-yellow)));
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .voltec-feature-card:hover::after {
+    opacity: 1;
+  }
+
+  /* Stats */
   .voltec-stat-number {
     font-family: var(--font-heading);
-    @apply text-6xl md:text-7xl font-bold;
-    color: hsl(var(--voltec-yellow));
+    @apply text-6xl md:text-8xl font-bold;
+    color: hsl(var(--voltec-blue));
   }
 
-  .voltec-section-label {
-    @apply text-xs font-semibold tracking-[0.3em] uppercase mb-4 inline-block;
-    color: hsl(var(--voltec-yellow));
-  }
-
+  /* Divider */
   .voltec-divider {
     width: 60px;
     height: 3px;
-    background: hsl(var(--voltec-yellow));
+    background: linear-gradient(90deg, hsl(var(--voltec-yellow)), hsl(var(--voltec-blue)));
+  }
+
+  /* Image hover zoom */
+  .voltec-image-zoom {
+    @apply overflow-hidden;
+  }
+  .voltec-image-zoom img {
+    @apply transition-transform duration-[1.2s] ease-out;
+  }
+  .voltec-image-zoom:hover img {
+    transform: scale(1.06);
   }
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--voltec-blue) / 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--voltec-blue) / 0.5);
 }
