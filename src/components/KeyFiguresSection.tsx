@@ -10,7 +10,7 @@ const figures = [
 ];
 
 const AnimatedNumber = ({ value, format }: { value: number; format: boolean }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
   const [display, setDisplay] = useState(0);
 
